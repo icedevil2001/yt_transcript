@@ -1,5 +1,5 @@
 import requests
-from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api import YouTubeTranscriptApi 
 
 def get_video_id(url):
     if "youtube.com" in url:

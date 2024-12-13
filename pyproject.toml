@@ -13,8 +13,7 @@ click = "^8.1.7"
 requests = "^2.32.3"
 
 [tool.poetry.scripts]
-ytt = "main:main"
-
+ytt = "yt_transcript.cli:yt_transcript_main"
 
 [build-system]
 requires = ["poetry-core"]

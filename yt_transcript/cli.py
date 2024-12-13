@@ -1,10 +1,10 @@
-#!/usr/env/bin python3
+
+#!/usr/bin/env python
 import sys
 import click
 from pathlib import Path
 from yt_transcript.transcript import get_video_id, get_transcript
 import importlib.metadata
-
 
 version = importlib.metadata.version("yt-transcript")
 
@@ -13,7 +13,7 @@ version = importlib.metadata.version("yt-transcript")
 @click.option("--output", "-o", type=click.File("w"), default="-", required=False)
 @click.option("--timestamp", "-t", is_flag=True, default=False)
 @click.version_option(version=version)
-def main(url, output, timestamp):
+def yt_transcript_main(url, output, timestamp):
     """ Get the transcript of a YouTube video and output it to a file or stdout """
     try:
         video_id = get_video_id(url)
@@ -31,7 +31,6 @@ def main(url, output, timestamp):
         output.write(text)
     except Exception as e:
         print(f"Error: {e}")
-        
 
 if __name__ == "__main__":
-    main()
+    yt_transcript_main()
