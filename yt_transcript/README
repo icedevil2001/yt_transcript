@@ -1,0 +1,47 @@
+# yt_transcript
+
+yt_transcript is a Python tool for extracting and processing YouTube video transcripts.
+
+## Features
+
+- Download transcripts from YouTube videos
+- Save transcripts in various formats
+- Simple command-line interface
+
+## Installation
+
+Clone the repository and install dependencies:
+
+
+## Usage
+
+```bash
+python yt_transcript/cli.py --help
+
+
+Usage: cli.py [OPTIONS] COMMAND [ARGS]...
+
+  Command line interface for yt-transcript
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  download-audio  Download the audio of a YouTube video
+  transcript      Get the transcript of a YouTube video and output it to... 
+```
+
+
+
+### Download transcript from a YouTube video
+To download the transcript of a YouTube video, use the following command:
+```bash
+python yt_transcript/cli.py transcript "https://www.youtube.com/watch?v=uXs-zPc63kM" -o transcript.txt
+```
+
+### Download audio from a YouTube video
+To download audio from a YouTube video, use the following command:
+```bash
+python -m yt_transcript.cli download-audio "https://www.youtube.com/watch?v=8mM5Oks8yZc" -o Yoga_Nidra_For_Deep_Rest.mp3 -q lowest
+```
+
