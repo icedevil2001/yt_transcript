@@ -1,5 +1,20 @@
 import requests
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, NoTranscriptFound, VideoUnavailable
+import youtube_transcript_api
+from youtube_transcript_api._errors import YouTubeTranscriptApiException
+from loguru import logger
+
+import importlib.metadata
+version = importlib.metadata.version("youtube-transcript-api")
+logger.info(f"Using youtube_transcript_api version: {version}")
+
+minimum_version = "1.1.0"
+if version < minimum_version:
+    raise RuntimeError(
+        f"youtube_transcript_api version {version} is too old. "
+        f"Please upgrade to at least version {minimum_version}."
+    )
+
 
 def get_video_id(url):
     if "youtube.com" in url:
@@ -28,7 +43,7 @@ def main():
         for entry in transcript:
             print(f"{entry['start']}: {entry['text']}")
     except Exception as e:
-        print(f"Error: {e}")
+        logger.error({e})
 
 if __name__ == "__main__":
     main()

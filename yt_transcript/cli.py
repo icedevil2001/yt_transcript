@@ -4,14 +4,24 @@ import click
 from pathlib import Path
 from yt_transcript.transcript import get_video_id, get_transcript
 import importlib.metadata
+from loguru import logger
+
 # from yt_transcript.audio import download_audio
 
 version = importlib.metadata.version("yt-transcript")
+print(f"Using yt-transcript version: {version}")
+
+
+CONTEXT_SETTINGS = dict(
+    help_option_names=['-h', '--help'],
+    show_defaults = True,
+)
 
 
 @click.group()
-def cli():
+def cli(context_settings=CONTEXT_SETTINGS):
     """Command line interface for yt-transcript"""
+    logger.info("yt-transcript CLI started")
     pass
 
 @cli.command('transcript')
@@ -23,7 +33,7 @@ def yt_transcript_main(url, output, timestamp):
     """ Get the transcript of a YouTube video and output it to a file or stdout """
     try:
         video_id = get_video_id(url)
-        print(f"Transcript for video ID: {video_id}")
+        logger.info(f"Transcript for video ID: {video_id}")
         transcript = get_transcript(video_id)
         if output.name != "<stdout>":
             sys.stdout = output
@@ -36,8 +46,9 @@ def yt_transcript_main(url, output, timestamp):
             text = ''.join([str(x['text']).replace('\n', ' ') for x in transcript])
             text = text.replace('\n', ' ').replace('.', '. ')
         output.write(text)
+        logger.success("Transcript written successfully.")
     except Exception as e:
-        print(f"Error: {e}")
+        logger.error(f"Error: {e}")
 
 
 @cli.command()
@@ -48,12 +59,13 @@ def download_audio_cmd(url, output, quality):
     """ Download the audio of a YouTube video """
     try:
         video_id = get_video_id(url)
-        print(f"Downloading audio for video ID: {video_id}")
+        logger.info(f"Downloading audio for video ID: {video_id}")
         # Import here to avoid import error if module doesn't exist
         from yt_transcript.audio import download_audio
         download_audio(url, output, quality)
+        logger.success(f"Audio downloaded to {output}")
     except Exception as e:
-        print(f"Error: {e}")
+        logger.error(f"Error: {e}")
 
 if __name__ == "__main__":
     cli()
