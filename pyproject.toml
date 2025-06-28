@@ -10,7 +10,7 @@ packages = [{include = "yt_transcript"}]
 python = ">=3.10,<3.14"
 youtube-transcript-api = "^1.1.0"
 click = "^8.1.7"
-requests = "^2.32.3"
+requests = "^2.32.4"
 loguru = "^0.7.3"
 
 [tool.poetry.scripts]
